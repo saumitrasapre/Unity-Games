@@ -7,9 +7,12 @@ public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
 
+    //Event when the raycast thrown by the player hits a different counter 
+    //than the one already highlighted
     public event EventHandler <OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
     public class OnSelectedCounterChangedEventArgs : EventArgs
     {
+        //The identity of the changed clear counter
         public ClearCounter selectedCounterPassedInEvent;
     }
 
@@ -69,7 +72,7 @@ public class Player : MonoBehaviour
         {
             if(raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
             {
-                //Object in front is a Clear Counter
+                //Object in front is a new Clear Counter
                 if (selectedCounter != clearCounter)
                 {
                     SetSelectedCounter(clearCounter);
@@ -96,6 +99,8 @@ public class Player : MonoBehaviour
         this.selectedCounter = selectedCounter;
         if (OnSelectedCounterChanged != null)
         {
+            //Trigger the event for when the raycast thrown by the player hits a different counter 
+            //than the one already highlighted
             OnSelectedCounterChanged(this, new OnSelectedCounterChangedEventArgs
             {
                 selectedCounterPassedInEvent = selectedCounter
