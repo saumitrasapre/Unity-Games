@@ -9,41 +9,41 @@ public class KitchenObject : MonoBehaviour
     //This script only has one function - to return the SO attached to this prefab
     [SerializeField] private KitchenObjectSO kitchenObjectSO;
 
-    private ClearCounter clearCounter;
+    private IKitchenObjectParent kitchenObjectParent;
 
     public KitchenObjectSO GetKitchenObjectSO()
     {
         return kitchenObjectSO;
     }
 
-    public void SetClearCounter(ClearCounter clearCounter)
+    public void SetKitchenObjectParent(IKitchenObjectParent kitchenObjectParent)
     {
-        if (this.clearCounter != null)
+        if (this.kitchenObjectParent != null)
         {
             //If this object was formerly a part of another clear counter,
             //then we must delete this object's reference from that clear counter.
-            this.clearCounter.ClearKitchenObject();
+            this.kitchenObjectParent.ClearKitchenObject();
         }
         //Update the object to know which new clear counter it now belongs to
-        this.clearCounter = clearCounter;
+        this.kitchenObjectParent = kitchenObjectParent;
 
-        if (clearCounter.HasKitchenObject())
+        if (kitchenObjectParent.HasKitchenObject())
         {
             //Error out if the new clear counter already has another object on it.
             // This should never happen!
-            Debug.LogError("Counter already has a kitchen object on it!");
+            Debug.LogError("Parent already has a kitchen object with it!");
         }
 
         //Update the new clear counter to tell that this object is now on top of it
-        clearCounter.SetKitchenObject(this);
+        kitchenObjectParent.SetKitchenObject(this);
 
         //Actually visually teleport the object on top of the new clear counter
-        transform.parent = clearCounter.GetKitchenObjectFollowTransform();
+        transform.parent = kitchenObjectParent.GetKitchenObjectFollowTransform();
         transform.localPosition = Vector3.zero;
     }
 
-    public ClearCounter GetClearCounter()
+    public IKitchenObjectParent GetKitchenObjectParent()
     {
-        return this.clearCounter;
+        return this.kitchenObjectParent;
     }
 }
