@@ -5,20 +5,24 @@ using UnityEngine;
 
 public class ContainerCounter : BaseCounter
 {
-
+    //This counter can be used to spawn new things
     [SerializeField] private KitchenObjectSO kitchenObjectSO;
 
     public event EventHandler OnPlayerGrabbedObject;
 
      public override void Interact(Player player)
     {
-        //This counter directly spawns the associated kitchen object, and directly teleports it to the player
-        Transform kitchenObjectTransform = Instantiate(kitchenObjectSO.prefab);
-        kitchenObjectTransform.GetComponent<KitchenObject>().SetKitchenObjectParent(player);
-
-        if (OnPlayerGrabbedObject != null)
+        //Directly spawn the associated kitchen object, and directly teleport it to the player's hand
+        if (!player.HasKitchenObject())
         {
-            OnPlayerGrabbedObject(this, EventArgs.Empty);
+            //Spawn an object ONLY if the player doesn't already have something in his hand
+            Transform kitchenObjectTransform = Instantiate(kitchenObjectSO.prefab);
+            kitchenObjectTransform.GetComponent<KitchenObject>().SetKitchenObjectParent(player);
+
+            if (OnPlayerGrabbedObject != null)
+            {
+                OnPlayerGrabbedObject(this, EventArgs.Empty);
+            }
         }
     }
 
