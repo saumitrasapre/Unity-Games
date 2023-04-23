@@ -20,8 +20,8 @@ public class KitchenObject : MonoBehaviour
     {
         if (this.kitchenObjectParent != null)
         {
-            //If this object was formerly a part of another clear counter,
-            //then we must delete this object's reference from that clear counter.
+            //If this object was formerly a part of another counter or player,
+            //then we must delete this object's reference from that counter or player.
             this.kitchenObjectParent.ClearKitchenObject();
         }
         //Update the object to know which new clear counter it now belongs to
