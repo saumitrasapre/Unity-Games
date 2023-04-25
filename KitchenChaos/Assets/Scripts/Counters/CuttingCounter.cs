@@ -22,13 +22,15 @@ public class CuttingCounter : BaseCounter
             //Counter doesn't have anything on top of it.
             if (player.HasKitchenObject())
             {
-                //Player is holding a kitchen object
+                //If player is holding a kitchen object
                 if (HasRecipeWithInput(player.GetKitchenObject().GetKitchenObjectSO()))
                 {
                     //If player is holding something that can be cut.
+                    //Teleport the kitchen object from the player's hand to this counter.
                     player.GetKitchenObject().SetKitchenObjectParent(this);
                     cuttingProgress = 0;
                     CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOWithInput(this.GetKitchenObject().GetKitchenObjectSO());
+                    //Trigger the Progress changed event
                     if (OnProgressChanged != null)
                     {
                         OnProgressChanged(this, new OnProgressChangedEventArgs
@@ -36,7 +38,7 @@ public class CuttingCounter : BaseCounter
                             progressNormalized = (float)cuttingProgress / cuttingRecipeSO.cuttingProgressMax
                         }) ;
                     }
-                    //Teleport the kitchen object from the player's hand to this counter.
+                    
                 }
 
             }
