@@ -30,7 +30,30 @@ public class ClearCounter : BaseCounter
             if (player.HasKitchenObject())
             {
                 //Player is holding a kitchen object
-                //Don't do anything. Player cannot carry 2 items with him.
+                //Don't do anything. Player cannot carry 2 items with him. EXCEPT for when he has a plate with him
+                if (player.GetKitchenObject().TryGetPlate(out PlateKitchenObject plateKitchenObject))
+                {
+                    //Player is holding a plate with him
+                    if (plateKitchenObject.TryAddIngredient(this.GetKitchenObject().GetKitchenObjectSO()))
+                    {
+                        //Transfer object from counter to plate
+                        this.GetKitchenObject().DestroySelf();
+                    }
+                }
+                else
+                {
+                    //Player is not holding a plate with him, but has something else with him
+                    if (this.GetKitchenObject().TryGetPlate(out plateKitchenObject))
+                    {
+                        //Counter is holding a plate on top of it
+                        if (plateKitchenObject.TryAddIngredient(player.GetKitchenObject().GetKitchenObjectSO()))
+                        {
+                            //Transfer object from player to plate
+                            player.GetKitchenObject().DestroySelf();
+                        }
+                    }
+                }
+                    
             }
             else
             {

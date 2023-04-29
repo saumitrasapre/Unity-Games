@@ -49,7 +49,16 @@ public class CuttingCounter : BaseCounter, IHasProgress
             if (player.HasKitchenObject())
             {
                 //Player is holding a kitchen object
-                //Don't do anything. Player cannot carry 2 items with him.
+                //Don't do anything. Player cannot carry 2 items with him EXCEPT for when he has a plate with him
+                if (player.GetKitchenObject().TryGetPlate(out PlateKitchenObject plateKitchenObject))
+                {
+                    //Player is holding a plate with him
+                    if (plateKitchenObject.TryAddIngredient(this.GetKitchenObject().GetKitchenObjectSO()))
+                    {
+                        this.GetKitchenObject().DestroySelf();
+                    }
+
+                }
             }
             else
             {

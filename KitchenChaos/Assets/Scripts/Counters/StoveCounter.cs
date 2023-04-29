@@ -158,7 +158,31 @@ public class StoveCounter : BaseCounter, IHasProgress
             if (player.HasKitchenObject())
             {
                 //Player is holding a kitchen object
-                //Don't do anything. Player cannot carry 2 items with him.
+                //Don't do anything. Player cannot carry 2 items with him.EXCEPT for when he has a plate with him
+                if (player.GetKitchenObject().TryGetPlate(out PlateKitchenObject plateKitchenObject))
+                {
+                    //Player is holding a plate with him
+                    if (plateKitchenObject.TryAddIngredient(this.GetKitchenObject().GetKitchenObjectSO()))
+                    {
+                        this.GetKitchenObject().DestroySelf();
+                        this.state = State.Idle;
+                        if (OnStoveStateChanged != null)
+                        {
+                            OnStoveStateChanged(this, new OnStoveStateChangedEventArgs
+                            {
+                                state = this.state
+                            });
+                        }
+                        if (OnProgressChanged != null)
+                        {
+                            OnProgressChanged(this, new IHasProgress.OnProgressChangedEventArgs
+                            {
+                                progressNormalized = 0f
+                            });
+                        }
+                    }
+
+                }
             }
             else
             {
