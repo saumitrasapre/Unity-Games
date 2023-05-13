@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class LookAtCamera : MonoBehaviour
 {
-
     private enum Mode
     {
         LookAt,
