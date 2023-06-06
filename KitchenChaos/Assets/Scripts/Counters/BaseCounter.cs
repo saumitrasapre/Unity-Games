@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,9 @@ using UnityEngine;
 public class BaseCounter : MonoBehaviour, IKitchenObjectParent
 {
     [SerializeField] private Transform counterTopPoint;
+
+    //Static event, belongs to the BaseCounter class. This will be triggered when an ingredient gets placed on ANY counter
+    public static event EventHandler OnAnyObjectPlacedHere;
 
     private KitchenObject kitchenObject;
     public virtual void Interact(Player player)
@@ -23,6 +27,13 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent
     public void SetKitchenObject(KitchenObject kitchenObject)
     {
         this.kitchenObject = kitchenObject;
+        if (this.kitchenObject != null)
+        {
+            if (OnAnyObjectPlacedHere != null)
+            {
+                OnAnyObjectPlacedHere(this, EventArgs.Empty);
+            }
+        }
     }
 
     public KitchenObject GetKitchenObject()
