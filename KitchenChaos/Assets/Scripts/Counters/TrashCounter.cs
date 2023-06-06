@@ -7,6 +7,10 @@ public class TrashCounter : BaseCounter
 {
     //Static event, belongs to the TrashCounter class. This will be triggered when ANY ingredient gets trashed in a TrashCounter
     public static event EventHandler OnAnyObjectTrashed;
+    new public static void ResetStaticData()
+    {
+        OnAnyObjectTrashed = null;
+    }
     public override void Interact(Player player)
     {
         if (player.HasKitchenObject())

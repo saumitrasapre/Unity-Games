@@ -141,7 +141,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
             if (canMove)
             {
                 //Player can move only along the X axis.
-                //Useful when a wall is blocking a forward path and you press W(or S) and A (or D) together.
+                //Useful when a wall is blocking a forward path and you press W (or S) and A (or D) together.
                 //Makes the player hug the wall and move along X axis
                 moveDir = moveDirX;
             }

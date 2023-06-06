@@ -11,7 +11,10 @@ public class CuttingCounter : BaseCounter, IHasProgress
     public event EventHandler <IHasProgress.OnProgressChangedEventArgs>OnProgressChanged;
     //Static event, belongs to the CuttingCounter class. This will be triggered when ANY cutting counter cuts the ingredient
     public static event EventHandler OnAnyCut; 
-
+    new public static void ResetStaticData()
+    {
+        OnAnyCut = null;
+    }
     public override void Interact(Player player)
     {
         if (!HasKitchenObject())

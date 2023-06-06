@@ -10,6 +10,11 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent
     //Static event, belongs to the BaseCounter class. This will be triggered when an ingredient gets placed on ANY counter
     public static event EventHandler OnAnyObjectPlacedHere;
 
+    public static void ResetStaticData()
+    {
+        OnAnyObjectPlacedHere = null;
+    }
+
     private KitchenObject kitchenObject;
     public virtual void Interact(Player player)
     {
