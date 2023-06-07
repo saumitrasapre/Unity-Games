@@ -34,7 +34,7 @@ public class DeliveryManager : MonoBehaviour
             //Spawn a new random recipe from the recipeListSO when the timer reaches max
             spawnRecipeTimer = spawnRecipeTimerMax;
 
-            if (waitingRecipeSOList.Count < waitingRecipesMax)
+            if (GameManager.Instance.IsGamePlaying() && waitingRecipeSOList.Count < waitingRecipesMax)
             {
                 RecipeSO waitingRecipeSO = recipeListSO.recipeSOList[UnityEngine.Random.Range(0, recipeListSO.recipeSOList.Count)];
                 waitingRecipeSOList.Add(waitingRecipeSO);
@@ -84,7 +84,7 @@ public class DeliveryManager : MonoBehaviour
                 {
                     //Player delivered the correct recipe!
                     successfulRecipesAmount++;
-                    waitingRecipeSOList.RemoveAt(i); 
+                    waitingRecipeSOList.RemoveAt(i);
                     if (OnRecipeCompleted != null)
                     {
                         OnRecipeCompleted(this, EventArgs.Empty);
