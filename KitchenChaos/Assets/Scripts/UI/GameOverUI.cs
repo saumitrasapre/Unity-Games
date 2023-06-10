@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameOverUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI recipesDeliveredText;
+    [SerializeField] private Button restartGameButton;
 
     private void Start()
     {
@@ -19,6 +21,10 @@ public class GameOverUI : MonoBehaviour
         {
             Show();
             recipesDeliveredText.text = DeliveryManager.Instance.GetSucessfulRecipesAmount().ToString();
+            restartGameButton.onClick.AddListener(() => {
+                //Code that runs when play button is clicked
+                Loader.Load(Loader.Scene.GameScene);
+            });
         }
         else
         {
