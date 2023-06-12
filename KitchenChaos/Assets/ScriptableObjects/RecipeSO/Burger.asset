@@ -16,3 +16,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0688553103238e0439a2e52ccb687d5a, type: 2}
   - {fileID: 11400000, guid: 9eba4a4264089e642a7e3b306fe3b1d9, type: 2}
   recipeName: Burger
+  recipeScore: 10
+  recipeTimeBonus: 5

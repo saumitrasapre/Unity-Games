@@ -17,6 +17,7 @@ public class DeliveryManager : MonoBehaviour
     private float spawnRecipeTimer;
     private float spawnRecipeTimerMax = 4f;
     private int waitingRecipesMax = 4;
+    private int recipeFailedPenalty = 10;
 
     private int successfulRecipesAmount;
 
@@ -84,6 +85,14 @@ public class DeliveryManager : MonoBehaviour
                 {
                     //Player delivered the correct recipe!
                     successfulRecipesAmount++;
+                    GameManager.Instance.SetGameScore(GameManager.Instance.GetGameScore() + waitingRecipeSO.recipeScore);
+                    float gameTime = GameManager.Instance.GetGamePlayingTimer();
+                    gameTime += waitingRecipeSO.recipeTimeBonus;
+                    if (gameTime > GameManager.Instance.GetGamePlayingTimerMax())
+                    {
+                        gameTime = GameManager.Instance.GetGamePlayingTimerMax();
+                    }
+                    GameManager.Instance.SetGamePlayingTimer(gameTime);
                     waitingRecipeSOList.RemoveAt(i);
                     if (OnRecipeCompleted != null)
                     {
@@ -99,6 +108,12 @@ public class DeliveryManager : MonoBehaviour
         }
         //No matches found
         //Player did not deliver a correct recipe!
+        int failedGameScore = GameManager.Instance.GetGameScore();
+        if (failedGameScore != 0)
+        {
+            failedGameScore -= recipeFailedPenalty;
+            GameManager.Instance.SetGameScore(failedGameScore);
+        }
         if (OnRecipeFailed != null)
         {
             OnRecipeFailed(this, EventArgs.Empty);

@@ -7,7 +7,9 @@ using UnityEngine.UI;
 public class GameOverUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI recipesDeliveredText;
+    [SerializeField] private TextMeshProUGUI gameScoreText;
     [SerializeField] private Button restartGameButton;
+    [SerializeField] private Button mainMenuButton;
 
     private void Start()
     {
@@ -21,9 +23,14 @@ public class GameOverUI : MonoBehaviour
         {
             Show();
             recipesDeliveredText.text = DeliveryManager.Instance.GetSucessfulRecipesAmount().ToString();
+            gameScoreText.text = GameManager.Instance.GetGameScore().ToString();
             restartGameButton.onClick.AddListener(() => {
                 //Code that runs when play button is clicked
                 Loader.Load(Loader.Scene.GameScene);
+            });
+            mainMenuButton.onClick.AddListener(() => {
+                //Code that runs when play button is clicked
+                Loader.Load(Loader.Scene.MainMenuScene);
             });
         }
         else

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public event EventHandler OnGameStateChanged;
     public event EventHandler OnGamePaused;
     public event EventHandler OnGameUnpaused;
+    private int gameScore = 0;
     private enum GameState
     {
         WaitingToStart,
@@ -19,14 +20,15 @@ public class GameManager : MonoBehaviour
 
     private GameState gameState;
     private float countdownToStartTimer = 3f;
-    private float gamePLayingTimer;
-    private float gamePLayingTimerMax = 60f;
+    private float gamePlayingTimer;
+    private float gamePlayingTimerMax = 60f;
     private bool isGamePaused = false;
 
     private void Awake()
     {
         Instance = this;
         gameState = GameState.WaitingToStart;
+        this.gameScore = 0;
     }
 
     private void Start()
@@ -72,7 +74,8 @@ public class GameManager : MonoBehaviour
                 countdownToStartTimer -= Time.deltaTime;
                 if (countdownToStartTimer < 0f)
                 {
-                    gamePLayingTimer = gamePLayingTimerMax;
+                    gamePlayingTimer = gamePlayingTimerMax;
+                    this.gameScore = 0;
                     gameState = GameState.GamePlaying;
                     if (OnGameStateChanged != null)
                     {
@@ -82,8 +85,8 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.GamePlaying:
-                gamePLayingTimer -= Time.deltaTime;
-                if (gamePLayingTimer < 0f)
+                gamePlayingTimer -= Time.deltaTime;
+                if (gamePlayingTimer < 0f)
                 {
                     gameState = GameState.GameOver;
                     if (OnGameStateChanged != null)
@@ -112,7 +115,7 @@ public class GameManager : MonoBehaviour
 
     public bool IsGamePlaying()
     {
-        return gameState == GameState.GamePlaying;  
+        return gameState == GameState.GamePlaying;
     }
 
     public bool IsCountdownToStartActive()
@@ -132,6 +135,28 @@ public class GameManager : MonoBehaviour
 
     public float GetGamePlayingTimerNormalized()
     {
-        return (gamePLayingTimer / gamePLayingTimerMax);
+        return (gamePlayingTimer / gamePlayingTimerMax);
+    }
+
+    public int GetGameScore()
+    {
+        return this.gameScore;
+    }
+    public void SetGameScore(int gameScore)
+    {
+        this.gameScore = gameScore;
+    }
+
+    public float GetGamePlayingTimer()
+    {
+        return this.gamePlayingTimer;
+    }
+    public float GetGamePlayingTimerMax()
+    {
+        return this.gamePlayingTimerMax;
+    }
+    public void SetGamePlayingTimer(float gamePlayingTimer)
+    {
+        this.gamePlayingTimer = gamePlayingTimer;
     }
 }
