@@ -45,7 +45,7 @@ public class PrefabPlacer : MonoBehaviour
             {
                 Vector2? possiblePlacementSpot = itemPlacementHelper.GetItemPlacementPosition(
                     placementData.itemData.placementType, 
-                    100, 
+                    100, //iterations
                     placementData.itemData.size, 
                     placementData.itemData.addOffset);
 

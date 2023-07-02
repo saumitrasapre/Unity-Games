@@ -7,9 +7,6 @@ public class ObstacleAvoidanceBehaviour : SteeringBehaviour
     [SerializeField]
     private float radius = 2f, agentColliderSize = 0.6f;
 
-    [SerializeField]
-    private bool showGizmo = true;
-
     //gizmo parameters
     float[] dangersResultTemp = null;
 
@@ -45,32 +42,6 @@ public class ObstacleAvoidanceBehaviour : SteeringBehaviour
         }
         dangersResultTemp = danger;
         return (danger, interest);
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (showGizmo == false)
-            return;
-
-        if (Application.isPlaying && dangersResultTemp != null)
-        {
-            if (dangersResultTemp != null)
-            {
-                Gizmos.color = Color.red;
-                for (int i = 0; i < dangersResultTemp.Length; i++)
-                {
-                    Gizmos.DrawRay(
-                        transform.position,
-                        Directions.eightDirections[i] * dangersResultTemp[i]
-                        );
-                }
-            }
-        }
-        else
-        {
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawWireSphere(transform.position, radius);
-        }
     }
 }
 

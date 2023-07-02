@@ -212,8 +212,7 @@ public class CorridorFirstMapGenerator : SimpleRandomWalkMapGenerator
         roomsDictionary[roomPosition] = roomFloor;
     }
 
-    private List<List<Vector2Int>> CreateCorridors(HashSet<Vector2Int> floorPositions,
-        HashSet<Vector2Int> potentialRoomPositions)
+    private List<List<Vector2Int>> CreateCorridors(HashSet<Vector2Int> floorPositions, HashSet<Vector2Int> potentialRoomPositions)
     {
         var currentPosition = startPosition;
         potentialRoomPositions.Add(currentPosition);

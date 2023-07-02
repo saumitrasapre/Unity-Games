@@ -8,9 +8,6 @@ public class SeekBehaviour : SteeringBehaviour
     [SerializeField]
     private float targetRechedThreshold = 0.5f;
 
-    [SerializeField]
-    private bool showGizmo = true;
-
     bool reachedLastTarget = true;
 
     //gizmo parameters
@@ -68,30 +65,5 @@ public class SeekBehaviour : SteeringBehaviour
         }
         interestsTemp = interest;
         return (danger, interest);
-    }
-
-    private void OnDrawGizmos()
-    {
-
-        if (showGizmo == false)
-            return;
-        Gizmos.DrawSphere(targetPositionCached, 0.2f);
-
-        if (Application.isPlaying && interestsTemp != null)
-        {
-            if (interestsTemp != null)
-            {
-                Gizmos.color = Color.green;
-                for (int i = 0; i < interestsTemp.Length; i++)
-                {
-                    Gizmos.DrawRay(transform.position, Directions.eightDirections[i] * interestsTemp[i]);
-                }
-                if (reachedLastTarget == false)
-                {
-                    Gizmos.color = Color.red;
-                    Gizmos.DrawSphere(targetPositionCached, 0.1f);
-                }
-            }
-        }
     }
 }

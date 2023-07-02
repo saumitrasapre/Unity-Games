@@ -10,9 +10,6 @@ public class TargetDetector : Detector
     [SerializeField]
     private LayerMask obstaclesLayerMask, playerLayerMask;
 
-    [SerializeField]
-    private bool showGizmos = false;
-
     //gizmo parameters
     private List<Transform> colliders;
 
@@ -48,19 +45,4 @@ public class TargetDetector : Detector
         aiData.targets = colliders;
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        if (showGizmos == false)
-            return;
-
-        Gizmos.DrawWireSphere(transform.position, targetDetectionRange);
-
-        if (colliders == null)
-            return;
-        Gizmos.color = Color.magenta;
-        foreach (var item in colliders)
-        {
-            Gizmos.DrawSphere(item.position, 0.3f);
-        }
-    }
 }
