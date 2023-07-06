@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 public class Weapon : MonoBehaviour
@@ -15,13 +16,19 @@ public class Weapon : MonoBehaviour
     protected bool isShooting = false;
     [SerializeField] protected bool reloadCoroutine = false;
     public bool AmmoFull { get => Ammo >= weaponData.AmmoCapacity; }
+
+    [field: SerializeField]
+    public UnityEvent<int> OnAmmoChange { get; set; }
     public int Ammo
     {
         get { return ammo; }
         set
         {
             ammo = Mathf.Clamp(value, 0, weaponData.AmmoCapacity);
-            ammo = value;
+            if (OnAmmoChange != null)
+            {
+                OnAmmoChange.Invoke(ammo);
+            }
         }
     }
 
