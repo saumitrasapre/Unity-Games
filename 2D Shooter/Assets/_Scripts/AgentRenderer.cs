@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class AgentRenderer : MonoBehaviour
 {
     protected SpriteRenderer spriteRenderer;
+    [field:SerializeField]
+    public UnityEvent<int> OnBackwardsMovement { get; set; }
 
     private void Awake()
     {
@@ -38,6 +40,33 @@ public class AgentRenderer : MonoBehaviour
         else if (result.z < 0)
         {
             spriteRenderer.flipX = false;
+        }
+    }
+
+    public void CheckBackWardMovement(Vector2 movementVector)
+    {
+        float angle = 0;
+        if(spriteRenderer.flipX == true)
+        {
+            angle = Vector2.Angle(-transform.right, movementVector);
+        }
+        else
+        {
+            angle = Vector2.Angle(transform.right, movementVector);
+        }
+        if (angle > 90)
+        {
+            if (OnBackwardsMovement != null)
+            {
+                OnBackwardsMovement.Invoke(-1);
+            }
+        }
+        else
+        {
+            if (OnBackwardsMovement != null)
+            {
+                OnBackwardsMovement.Invoke(1);
+            }
         }
     }
 }

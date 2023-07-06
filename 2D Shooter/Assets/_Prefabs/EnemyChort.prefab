@@ -79,6 +79,56 @@ MonoBehaviour:
   feedbackToPlay:
   - {fileID: 383980754}
   - {fileID: 2105749170593545255}
+--- !u!1 &958412668
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 958412669}
+  - component: {fileID: 958412670}
+  m_Layer: 8
+  m_Name: ItemDropper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &958412669
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958412668}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2550138133508598601}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &958412670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958412668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 156543b9d651c9b48904dd7ad72ff3d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsToDrop:
+  - rate: 1
+    itemPrefab: {fileID: 6297322988042352986, guid: 0f18fd8b2e3c59d4080744c1525093ca, type: 3}
+  - rate: 0.8
+    itemPrefab: {fileID: 4176138548951538623, guid: 4485ecd919087ec4984f0c5a887a7fcb, type: 3}
+  dropChance: 0.5
 --- !u!1 &2550138133473690628
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,6 +231,7 @@ Transform:
   - {fileID: 2550138134720657993}
   - {fileID: 383980752}
   - {fileID: 2432643675397865518}
+  - {fileID: 958412669}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -315,6 +366,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 958412670}
+        m_TargetAssemblyTypeName: ItemDropper, Assembly-CSharp
+        m_MethodName: DropItem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2550138133508598581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,8 +392,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Target>k__BackingField: {fileID: 0}
   <CurrentState>k__BackingField: {fileID: 2550138135299437189}
-  enemyRenderer: {fileID: 0}
-  enemyMovement: {fileID: 0}
+  enemyRenderer: {fileID: 2550138135416119161}
+  enemyMovement: {fileID: 2550138133508598600}
 --- !u!114 &2550138133508598580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,7 +434,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2550138133517777528}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.53, y: 0.76, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -407,7 +470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5f1178f102912d418bdf8e49c48af0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Distance>k__BackingField: 12
+  <Distance>k__BackingField: 14
 --- !u!114 &1659103109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -420,7 +483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a0e956f8e3f4ad4c889c48d1e6f1d96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 12
+  distance: 14
   raycastMask:
     serializedVersion: 2
     m_Bits: 640
@@ -484,7 +547,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.6
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -755,7 +818,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5f1178f102912d418bdf8e49c48af0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Distance>k__BackingField: 12
+  <Distance>k__BackingField: 14
 --- !u!1 &2550138134720657998
 GameObject:
   m_ObjectHideFlags: 0
@@ -1287,7 +1350,7 @@ MonoBehaviour:
   - {x: -0.018024445, y: -0.4405291, z: 0}
   m_ShapePathHash: 107330922
   m_Mesh: {fileID: 0}
-  m_InstanceId: -454818
+  m_InstanceId: 52006
   m_LocalBounds:
     m_Center: {x: 0.029248476, y: 0.060431182, z: 0}
     m_Extent: {x: 0.30883098, y: 0.5686269, z: 0}

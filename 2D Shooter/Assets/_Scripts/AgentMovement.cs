@@ -12,6 +12,7 @@ public class AgentMovement : MonoBehaviour
     [SerializeField] MovementDataSO movementData;
     protected Vector2 movementDirection;
     private bool isPlayerWalking;
+    [SerializeField] private AgentRenderer agentRenderer;
 
     public static AgentMovement Instance { get; private set; }
 
@@ -19,6 +20,7 @@ public class AgentMovement : MonoBehaviour
     {
         Instance = this;
         rigidbody2d = GetComponent<Rigidbody2D>();
+        agentRenderer = GetComponentInChildren<AgentRenderer>();
     }
 
     public bool getPlayerWalkingState()
@@ -34,7 +36,7 @@ public class AgentMovement : MonoBehaviour
     private void HandleMovement()
     {
         Vector2 movementInput = gameInput.GetMovementVectorNormalized();
-        MoveAgent(movementInput);     
+        MoveAgent(movementInput);
     }
 
     private void MoveAgent(Vector2 movementInput)
@@ -52,6 +54,7 @@ public class AgentMovement : MonoBehaviour
         if (currentVelocity > 0)
         {
             isPlayerWalking = true;
+            agentRenderer.CheckBackWardMovement(movementInput);
         }
         else
         {

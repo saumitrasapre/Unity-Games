@@ -9,6 +9,7 @@ public class AgentAnimator : MonoBehaviour
     protected Animator playerAnimatorComponent;
     private const string IS_WALKING = "IsWalking";
     private const string DIE = "Die";
+    private const string WALKMULTIPLIER = "WalkMultiplier";
 
     private void Awake()
     {
@@ -22,5 +23,10 @@ public class AgentAnimator : MonoBehaviour
     public void PlayDeathAnimation()
     {
         playerAnimatorComponent.SetTrigger(DIE);
+    }
+
+    public void SetWalkSpeed(int val)
+    {
+        playerAnimatorComponent.SetFloat(WALKMULTIPLIER, val);
     }
 }

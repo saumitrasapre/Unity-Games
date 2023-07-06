@@ -23,6 +23,7 @@ public class DistanceDecision : AIDecision
         return aiActionData.TargetSpotted;
     }
 
+#if UNITY_EDITOR
     protected void OnDrawGizmos()
     {
         if (UnityEditor.Selection.activeObject == this.gameObject)
@@ -32,4 +33,5 @@ public class DistanceDecision : AIDecision
             Gizmos.color = Color.white;
         }
     }
+#endif
 }

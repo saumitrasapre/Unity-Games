@@ -8,20 +8,29 @@ public class Player : MonoBehaviour, IAgent, IHittable
     [SerializeField]
     private int maxHealth;
     private int health;
-    public int Health { get=>health; set
+    public int Health
+    {
+        get => health; set
         {
-            health = Mathf.Clamp(value,0,maxHealth);
+            health = Mathf.Clamp(value, 0, maxHealth);
             uiHealth.UpdateUI(health);
-        } }
+        }
+    }
     private bool isDead = false;
+    private PlayerWeapon playerWeapon;
 
-    [field:SerializeField]
+    [field: SerializeField]
     public UIHealth uiHealth { get; set; }
 
-    [field:SerializeField]
+    [field: SerializeField]
     public UnityEvent OnDie { get; set; }
-    [field:SerializeField]
+    [field: SerializeField]
     public UnityEvent OnGetHit { get; set; }
+
+    private void Awake()
+    {
+        playerWeapon = GetComponentInChildren<PlayerWeapon>();
+    }
 
     private void Start()
     {
@@ -47,7 +56,45 @@ public class Player : MonoBehaviour, IAgent, IHittable
                 }
             }
         }
-       
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Resource"))
+        {
+            Resource resource = collision.gameObject.GetComponent<Resource>();
+            if (resource != null)
+            {
+                switch (resource.ResourceData.ResourceType)
+                {
+                    case ResourceTypeEnum.Health:
+                        if (Health >= maxHealth)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            Health += resource.ResourceData.GetAmount();
+                            resource.PickupResource();
+                        }
+                        break;
+                    case ResourceTypeEnum.Ammo:
+                        if (playerWeapon.AmmoFull)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            playerWeapon.AddAmmo(resource.ResourceData.GetAmount());
+                            resource.PickupResource();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     }
 
     public void DisableInput()

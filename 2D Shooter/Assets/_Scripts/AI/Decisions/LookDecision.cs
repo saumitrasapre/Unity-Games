@@ -27,6 +27,7 @@ public class LookDecision : AIDecision
         return false;
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         if(UnityEditor.Selection.activeObject == this.gameObject && enemyBrain!=null && enemyBrain.Target != null)
@@ -36,4 +37,5 @@ public class LookDecision : AIDecision
             Gizmos.DrawRay(this.transform.position, direction.normalized * distance);
         }
     }
+#endif
 }
