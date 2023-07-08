@@ -24,5 +24,6 @@ public enum ResourceTypeEnum
     Health,
     Ammo,
     Key,
-    Coin
+    Coin,
+    TargetChest
 }

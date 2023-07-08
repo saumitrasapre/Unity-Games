@@ -18,7 +18,7 @@ TagManager:
   - EnemyMovementCollider
   - PlayerMovementCollider
   - Resource
-  - 
+  - TargetChest
   - 
   - 
   - 

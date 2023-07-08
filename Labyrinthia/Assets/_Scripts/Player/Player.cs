@@ -20,8 +20,10 @@ public class Player : MonoBehaviour, IAgent, IHittable
     [field: SerializeField]
     public int Coins { get; set; }
     private bool isDead = false;
+    private bool isNearTargetChest = false;
     private bool HasKey { get; set; }
     private PlayerWeapon playerWeapon;
+    private TargetChest targetChestnearPlayer = null;
 
     [field: SerializeField]
     public UIHealth uiHealth { get; set; }
@@ -30,11 +32,12 @@ public class Player : MonoBehaviour, IAgent, IHittable
     public UICoins uiCoins { get; set; }
 
     [field: SerializeField]
+    public UIKey uiKey { get; set; }
+
+    [field: SerializeField]
     public UnityEvent OnDie { get; set; }
     [field: SerializeField]
     public UnityEvent OnGetHit { get; set; }
-    [field: SerializeField]
-    public UnityEvent OnGetKey{ get; set; }
 
     private void Awake()
     {
@@ -44,10 +47,29 @@ public class Player : MonoBehaviour, IAgent, IHittable
     private void Start()
     {
         HasKey = false;
+        isNearTargetChest = false;
         Health = maxHealth;
         uiHealth.Initialize(Health);
         Coins = 0;
         uiCoins.UpdateCoinText(this.Coins);
+        targetChestnearPlayer = null;
+        GameInput.Instance.OnInteractPerformed += GameInput_OnInteractPerformed;
+    }
+
+    private void GameInput_OnInteractPerformed(object sender, System.EventArgs e)
+    {
+        Debug.Log("Interact performed");
+        if (isNearTargetChest && targetChestnearPlayer!=null)
+        {
+            if (HasKey)
+            {
+                targetChestnearPlayer.OpenChest();
+            }
+            else
+            {
+                uiKey.UpdateKeyText(HasKey);
+            }
+        }
     }
 
     public void GetHit(int damage, GameObject damageDealer)
@@ -73,7 +95,7 @@ public class Player : MonoBehaviour, IAgent, IHittable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Resource"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Resource") || collision.gameObject.layer == LayerMask.NameToLayer("TargetChest"))
         {
             Resource resource = collision.gameObject.GetComponent<Resource>();
             if (resource != null)
@@ -111,6 +133,7 @@ public class Player : MonoBehaviour, IAgent, IHittable
                         {
                             HasKey = true;
                             resource.PickupResource();
+                            uiKey.UpdateKeyText(HasKey);
                         }
                         break;
                     case ResourceTypeEnum.Coin:
@@ -118,10 +141,13 @@ public class Player : MonoBehaviour, IAgent, IHittable
                             this.Coins += resource.ResourceData.GetAmount();
                             uiCoins.UpdateCoinText(this.Coins);
                             resource.PickupResource();
-                            if (OnGetKey != null)
-                            {
-                                OnGetKey.Invoke();
-                            }
+                        }
+                        break;
+                    case ResourceTypeEnum.TargetChest:
+                        {
+                            Debug.Log("Player near target chest!");
+                            isNearTargetChest = true;
+                            targetChestnearPlayer = collision.gameObject.GetComponent<TargetChest>();
                         }
                         break;
                     default:
@@ -131,9 +157,52 @@ public class Player : MonoBehaviour, IAgent, IHittable
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Resource") || collision.gameObject.layer == LayerMask.NameToLayer("TargetChest"))
+        {
+            Resource resource = collision.gameObject.GetComponent<Resource>();
+            if (resource != null)
+            {
+                switch (resource.ResourceData.ResourceType)
+                {
+                    case ResourceTypeEnum.None:
+                        break;
+                    case ResourceTypeEnum.Health:
+                        break;
+                    case ResourceTypeEnum.Ammo:
+                        break;
+                    case ResourceTypeEnum.Key:
+                        break;
+                    case ResourceTypeEnum.Coin:
+                        break;
+                    case ResourceTypeEnum.TargetChest:
+                        {
+                            Debug.Log("Player went away from target chest!");
+                            isNearTargetChest = false;
+                            targetChestnearPlayer = null;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+
+    public bool PlayerHasKey()
+    {
+        return HasKey;
+    }
+
     public void DisableInput()
     {
         GameInput.Instance.DisableGameInput();
+    }
+
+    private void OnDestroy()
+    {
+        GameInput.Instance.OnInteractPerformed -= GameInput_OnInteractPerformed;
     }
 
 }

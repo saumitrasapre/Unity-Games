@@ -12,6 +12,7 @@ public class GameInput : MonoBehaviour
     public event EventHandler<OnMousePositionChangedEventArgs> OnMousePositionChanged;
     public event EventHandler OnFirePressed;
     public event EventHandler OnFireReleased;
+    public event EventHandler OnInteractPerformed;
 
 
     public class OnMousePositionChangedEventArgs
@@ -27,10 +28,22 @@ public class GameInput : MonoBehaviour
         mainCamera = Camera.main;
         playerInputActions.Player.Fire.started += Fire_started;
         playerInputActions.Player.Fire.canceled += Fire_canceled;
+        playerInputActions.Player.Interact.performed += Interact_performed;
+    }
+
+    private void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        if (OnInteractPerformed != null)
+        {
+            OnInteractPerformed(this, EventArgs.Empty);
+        }
     }
 
     private void OnDestroy()
     {
+        playerInputActions.Player.Fire.started -= Fire_started;
+        playerInputActions.Player.Fire.canceled -= Fire_canceled;
+        playerInputActions.Player.Interact.performed -= Interact_performed;
         playerInputActions.Dispose();
     }
 
