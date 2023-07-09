@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 [CreateAssetMenu]
@@ -13,7 +12,7 @@ public class ItemData : ScriptableObject
     public int health = 1;
     public bool nonDestructible;
     public bool hasAnimation = false;
-    public AnimatorController animatorController;
+    public RuntimeAnimatorController animatorController;
     public bool isIlluminated = false;
     public Color illuminationColor;
     public float illuminationIntensity = 1;

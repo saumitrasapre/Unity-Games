@@ -71,17 +71,13 @@ public class PrefabPlacer : MonoBehaviour
     {
         if (prefab == null)
             return null;
-        GameObject newItem;
-        if (Application.isPlaying)
-        {
-            newItem = Instantiate(prefab, placementPosition, Quaternion.identity);
-        }
-        else
-        {
-            newItem = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
-            newItem.transform.position = placementPosition;
-            newItem.transform.rotation = Quaternion.identity;
-        }
+        GameObject newItem = Instantiate(prefab, placementPosition, Quaternion.identity);
+        //else
+        //{
+        //    newItem = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
+        //    newItem.transform.position = placementPosition;
+        //    newItem.transform.rotation = Quaternion.identity;
+        //}
 
         return newItem;
     }
