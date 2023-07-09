@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6335274467772861448}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BulletShell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 6335274469298678190}
   - component: {fileID: 6335274469298678184}
   - component: {fileID: 6335274469298678185}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bullet_shell
   m_TagString: Untagged
   m_Icon: {fileID: 0}

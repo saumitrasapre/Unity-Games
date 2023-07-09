@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3977439958899388819}
   - component: {fileID: 3977439958899388818}
   - component: {fileID: 3977439958899388817}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ImpactObstaclePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

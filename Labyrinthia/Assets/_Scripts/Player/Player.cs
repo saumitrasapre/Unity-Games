@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +21,9 @@ public class Player : MonoBehaviour, IAgent, IHittable
     [field: SerializeField]
     public int Coins { get; set; }
     private bool isDead = false;
+    [SerializeField]
     private bool isNearTargetChest = false;
+    [field:SerializeField]
     private bool HasKey { get; set; }
     private PlayerWeapon playerWeapon;
     private TargetChest targetChestnearPlayer = null;
@@ -39,6 +42,8 @@ public class Player : MonoBehaviour, IAgent, IHittable
     [field: SerializeField]
     public UnityEvent OnGetHit { get; set; }
 
+    public event EventHandler OnChestOpened;
+
     private void Awake()
     {
         playerWeapon = GetComponentInChildren<PlayerWeapon>();
@@ -52,22 +57,26 @@ public class Player : MonoBehaviour, IAgent, IHittable
         uiHealth.Initialize(Health);
         Coins = 0;
         uiCoins.UpdateCoinText(this.Coins);
+        GameManager.Instance.SetGameScore(this.Coins);
         targetChestnearPlayer = null;
         GameInput.Instance.OnInteractPerformed += GameInput_OnInteractPerformed;
     }
 
     private void GameInput_OnInteractPerformed(object sender, System.EventArgs e)
     {
-        Debug.Log("Interact performed");
         if (isNearTargetChest && targetChestnearPlayer!=null)
         {
             if (HasKey)
             {
                 targetChestnearPlayer.OpenChest();
+                if (OnChestOpened != null)
+                {
+                    OnChestOpened(this,EventArgs.Empty);
+                }
             }
             else
             {
-                uiKey.UpdateKeyText(HasKey);
+                uiKey.UpdateKeyText(isNearTargetChest, HasKey);
             }
         }
     }
@@ -133,21 +142,22 @@ public class Player : MonoBehaviour, IAgent, IHittable
                         {
                             HasKey = true;
                             resource.PickupResource();
-                            uiKey.UpdateKeyText(HasKey);
+                            uiKey.UpdateKeyText(isNearTargetChest, HasKey);
                         }
                         break;
                     case ResourceTypeEnum.Coin:
                         {
                             this.Coins += resource.ResourceData.GetAmount();
                             uiCoins.UpdateCoinText(this.Coins);
+                            GameManager.Instance.SetGameScore(this.Coins);
                             resource.PickupResource();
                         }
                         break;
                     case ResourceTypeEnum.TargetChest:
                         {
-                            Debug.Log("Player near target chest!");
                             isNearTargetChest = true;
                             targetChestnearPlayer = collision.gameObject.GetComponent<TargetChest>();
+                            uiKey.UpdateKeyText(isNearTargetChest, HasKey);
                         }
                         break;
                     default:
@@ -178,9 +188,9 @@ public class Player : MonoBehaviour, IAgent, IHittable
                         break;
                     case ResourceTypeEnum.TargetChest:
                         {
-                            Debug.Log("Player went away from target chest!");
                             isNearTargetChest = false;
                             targetChestnearPlayer = null;
+                            uiKey.UpdateKeyText(isNearTargetChest, HasKey);
                         }
                         break;
                     default:

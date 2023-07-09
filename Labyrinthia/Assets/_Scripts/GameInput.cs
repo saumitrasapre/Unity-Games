@@ -13,6 +13,7 @@ public class GameInput : MonoBehaviour
     public event EventHandler OnFirePressed;
     public event EventHandler OnFireReleased;
     public event EventHandler OnInteractPerformed;
+    public event EventHandler OnPausePerformed;
 
 
     public class OnMousePositionChangedEventArgs
@@ -29,6 +30,15 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.Fire.started += Fire_started;
         playerInputActions.Player.Fire.canceled += Fire_canceled;
         playerInputActions.Player.Interact.performed += Interact_performed;
+        playerInputActions.Player.Pause.performed += Pause_performed;
+    }
+
+    private void Pause_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        if (OnPausePerformed != null)
+        {
+            OnPausePerformed(this, EventArgs.Empty);
+        }
     }
 
     private void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -44,12 +54,19 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.Fire.started -= Fire_started;
         playerInputActions.Player.Fire.canceled -= Fire_canceled;
         playerInputActions.Player.Interact.performed -= Interact_performed;
+        playerInputActions.Player.Pause.performed -= Pause_performed;
         playerInputActions.Dispose();
     }
 
     public void DisableGameInput()
     {
         playerInputActions.Player.Disable();
+        playerInputActions.Player.Pause.Enable();
+    }
+
+    public void EnableGameInput()
+    {
+        playerInputActions.Player.Enable();
     }
 
     private void Fire_canceled(UnityEngine.InputSystem.InputAction.CallbackContext obj)

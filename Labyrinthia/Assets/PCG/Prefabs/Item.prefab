@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2938968024682511224}
   - component: {fileID: 6097778975202982515}
   - component: {fileID: 6031965934702659660}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -318,7 +318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4874018662227830765}
   - component: {fileID: 7563398140611304232}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: ItemDropper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
