@@ -2,14 +2,18 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private Texture2D cursorTexture = null;
+    [SerializeField] private GameObject backgroundMusic = null;
     public event EventHandler OnGamePaused;
-    public event EventHandler OnGameUnpaused;
+    public event EventHandler OnGameUnpaused;    
+    public event EventHandler OnMusicMuted;
+    public event EventHandler OnMusicUnmuted;
     public static GameManager Instance { get; private set; }
     private int gameScore = 0;
 
@@ -21,6 +25,7 @@ public class GameManager : MonoBehaviour
     }
     private GameState gameState;
     private bool isGamePaused = false;
+    private bool isMusicMuted = false;
     private void Awake()
     {
         Time.timeScale = 1f;
@@ -67,6 +72,33 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ToggleMusic()
+    {
+        isMusicMuted = !isMusicMuted;
+        if (isMusicMuted)
+        {
+            if (backgroundMusic != null)
+            {
+                backgroundMusic.GetComponent<AudioSource>().volume = 0;
+                if (OnMusicMuted != null)
+                {
+                    OnMusicMuted(this, EventArgs.Empty);
+                }
+            }
+        }
+        else
+        {
+            if (backgroundMusic != null)
+            {
+                backgroundMusic.GetComponent<AudioSource>().volume = 0.5f;
+                if (OnMusicUnmuted != null)
+                {
+                    OnMusicUnmuted(this, EventArgs.Empty);
+                }
+            }
+        }
+    }
+
     public bool IsGamePlaying()
     {
         return gameState == GameState.GamePlaying;
@@ -89,6 +121,11 @@ public class GameManager : MonoBehaviour
     public void SetGameState(GameState state)
     {
         this.gameState = state;
+    }
+
+    public bool IsGameMuted()
+    {
+        return isMusicMuted;
     }
 
 }

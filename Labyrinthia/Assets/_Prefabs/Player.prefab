@@ -657,6 +657,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 2683835381222270946}
+        m_TargetAssemblyTypeName: FeedbackPlayer, Assembly-CSharp
+        m_MethodName: FinishFeedback
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   <OnGetHit>k__BackingField:
     m_PersistentCalls:
       m_Calls:
@@ -1162,7 +1174,7 @@ MonoBehaviour:
   - {x: -0.018024415, y: -0.4622724, z: 0}
   m_ShapePathHash: -1933200128
   m_Mesh: {fileID: 0}
-  m_InstanceId: 67744
+  m_InstanceId: -1328
   m_LocalBounds:
     m_Center: {x: 0.03035137, y: 0.022195578, z: 0}
     m_Extent: {x: 0.47300774, y: 0.62280023, z: 0}
@@ -1232,7 +1244,7 @@ MonoBehaviour:
   duration: 0.07
   strength: 0.2
   randomness: 30
-  vibrato: 10
+  vibrato: 5
   snapping: 0
   fadeOut: 0
 --- !u!114 &2683835381222270944

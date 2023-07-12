@@ -465,6 +465,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8163199633060523761}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2550138133508598581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1438,7 +1450,7 @@ MonoBehaviour:
   - {x: -0.018024445, y: -0.4405291, z: 0}
   m_ShapePathHash: 107330922
   m_Mesh: {fileID: 0}
-  m_InstanceId: 49662
+  m_InstanceId: 49658
   m_LocalBounds:
     m_Center: {x: 0.029248476, y: 0.060431182, z: 0}
     m_Extent: {x: 0.30883098, y: 0.5686269, z: 0}

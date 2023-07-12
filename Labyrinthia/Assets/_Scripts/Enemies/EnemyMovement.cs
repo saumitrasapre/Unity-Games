@@ -104,4 +104,9 @@ public class EnemyMovement : MonoBehaviour
         rigidbody2d.velocity = Vector2.zero;
         isKnockedBack = false;
     }
+    public void StopImmediately()
+    {
+        currentVelocity = 0;
+        rigidbody2d.velocity = Vector2.zero;
+    }
 }

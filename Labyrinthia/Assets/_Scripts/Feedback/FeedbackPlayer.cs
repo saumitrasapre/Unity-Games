@@ -27,7 +27,7 @@ public class FeedbackPlayer : MonoBehaviour
         }
     }
 
-    private void FinishFeedback()
+    public void FinishFeedback()
     {
         foreach (var feedback in feedbackToPlay)
         {
