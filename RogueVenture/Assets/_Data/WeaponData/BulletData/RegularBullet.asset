@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fc8061bf6bdab04f996eafdaaec59f1, type: 3}
+  m_Name: RegularBullet
+  m_EditorClassIdentifier: 
+  <BulletPrefab>k__BackingField: {fileID: 7202484239083664876, guid: d98c9bd44375c614f81bac0aa2e111a2, type: 3}
+  <BulletSpeed>k__BackingField: 30
+  <Damage>k__BackingField: 1
+  <Friction>k__BackingField: 0
+  <Bounce>k__BackingField: 0
+  <GoThroughHittable>k__BackingField: 0
+  <IsRayCast>k__BackingField: 0
+  <ImpactObstaclePrefab>k__BackingField: {fileID: 3977439958899388830, guid: 055f105ab1e3ced43874b8e23943a726, type: 3}
+  <ImpactEnemyPrefab>k__BackingField: {fileID: 4943995479911667211, guid: 86825a3523890f946bb7a8db46520f57, type: 3}
+  <KnockBackPower>k__BackingField: 6
+  <KnockBackDelay>k__BackingField: 0.1
+  <BulletLayerMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 896
