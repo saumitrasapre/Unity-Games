@@ -1,2 +1,12 @@
-# unity-practice
-Practice codes for game dev in unity
+# Unity Games
+This repository contains a collection of some of the games and projects I've developed using the Unity Game engine.
+
+| Project                               	| Description                                                                                                                                        	| Link                                                                   	|
+|---------------------------------------	|----------------------------------------------------------------------------------------------------------------------------------------------------	|------------------------------------------------------------------------	|
+| [KitchenChaos-Advanced](KitchenChaos) 	| A 3D recipe cooking game built from scratch.                                                                                                       	| [Play it here!](https://shockwave20599.itch.io/kitchen-chaos-advanced) 	|
+| [Labyrinthia](Labyrinthia)            	| A prototype roguelite test game containing the assembled building blocks for 2D character control, shooting, map generation and prop placement. 	| [Play it here!](https://shockwave20599.itch.io/labyrinthia)            	|
+| [RogueVenture](RogueVenture)          	| A polished version of [Labyrinthia](Labyrinthia), submitted to [Kenney Jam 2023](https://itch.io/jam/kenney-jam-2023/rate/2183379).                 	| [Play it here!](https://shockwave20599.itch.io/rogue-venture)          	|
+| [2D Shooter](2D%20Shooter)          	| A basic implementation of a 2D character controller with a shooting mechanic. Also contains many tweening add-ons that polish the shooting experience                 	| -          	|
+| [Procedural Generation 2D](Utils/Procedural%20Generation%202D/)          	| A barebones procedural map generator that allows the user to generate map floors using a choice of two different algorithms - Random Walk and Binary Space Partitioning. Also contains a procedural prop placer that uses Dijkstra's algorithm for spawning pickups based on distance from player.             	| -          	|
+| [Third Person Controller](Utils/Third%20Person%20Controller/)          	| A basic third person controller template with added aiming and shooting mechanics.            	| -          	|
+| [Unity Input System](Utils/Unity%20Input%20System/)          	| A basic template project that employs the Unity's new input system package. Used as a test project for different inputs.             	| -          	|
